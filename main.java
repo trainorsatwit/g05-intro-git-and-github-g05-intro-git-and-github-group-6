@@ -1,12 +1,224 @@
 import java.util.Scanner;
 
-public class main
-{
-    //TODO: main method, game loop
-    public static void main(String[] args)
-    {
-        System.out.println("You are in a house");
-        System.out.println("You need to find your keys before leaving");
-        System.out.println("You have seemingly forgotten where you placed them");
+// Class to hold main game logic
+public class main {
+    /**
+     * Method randomizes the room and furniture that will contain the key
+     */
+    public static void keyRandomizer() {
+        // TODO: Extra feature if time permits
+    }
+
+    /**
+     * Method randomizes room connections to mix up house layout
+     */
+    public static void roomRandomizer() {
+        // TODO: Extra feature if time permits
+    }
+
+    /**
+     * Method randomizes the player starting location in the house
+     */
+    public static void startPositionRandomizer() {
+        // TODO: Extra feature if time permits
+    }
+
+    /**
+     * Main function that controls game logic
+     * @param args arguments
+     */
+    public static void main(String[] args) {
+        /* Introduction Text */
+
+        System.out.println("  ______                            _____                         _______        _                 _                 _                  \n" +
+                " |  ____|                          |  __ \\                       |__   __|      | |       /\\      | |               | |                 \n" +
+                " | |__   ___  ___ __ _ _ __   ___  | |__) |___   ___  _ __ ___      | | _____  _| |_     /  \\   __| |_   _____ _ __ | |_ _   _ _ __ ___ \n" +
+                " |  __| / __|/ __/ _` | '_ \\ / _ \\ |  _  // _ \\ / _ \\| '_ ` _ \\     | |/ _ \\ \\/ / __|   / /\\ \\ / _` \\ \\ / / _ \\ '_ \\| __| | | | '__/ _ \\\n" +
+                " | |____\\__ \\ (_| (_| | |_) |  __/ | | \\ \\ (_) | (_) | | | | | |    | |  __/>  <| |_   / ____ \\ (_| |\\ V /  __/ | | | |_| |_| | | |  __/\n" +
+                " |______|___/\\___\\__,_| .__/ \\___| |_|  \\_\\___/ \\___/|_| |_| |_|    |_|\\___/_/\\_\\\\__| /_/    \\_\\__,_| \\_/ \\___|_| |_|\\__|\\__,_|_|  \\___|\n" +
+                "                      | |                                                                                                               \n" +
+                "                      |_|                                                                                                               ");
+        System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("PARAGRAPH EXPLAINING THE GAME AND RULES:");
+        System.out.println("- You are in a house.");
+        System.out.println("- You have forgotten where you placed your keys.");
+        System.out.println("- You need to find your keys before leaving.");
+        System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("   _____                 _   _                _    _ \n" +
+                "  / ____|               | | | |              | |  | |\n" +
+                " | |  __  ___   ___   __| | | |    _   _  ___| | _| |\n" +
+                " | | |_ |/ _ \\ / _ \\ / _` | | |   | | | |/ __| |/ / |\n" +
+                " | |__| | (_) | (_) | (_| | | |___| |_| | (__|   <|_|\n" +
+                "  \\_____|\\___/ \\___/ \\__,_| |______\\__,_|\\___|_|\\_(_)\n" +
+                "                                                     \n" +
+                "                                                     ");
+        System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------");
+
+        /* Start of Game */
+
+        // Instantiates a House object which has the data structure of an undirected graph
+        House house = new House();
+
+        // Instantiates various Furniture objects
+        Furniture coffeeTable = new Furniture(false, "Coffee Table");
+        Furniture diningTable = new Furniture(false, "Dining Table");
+        Furniture counter = new Furniture(false, "Counter");
+        Furniture chair = new Furniture(false, "Chair");
+        Furniture bed = new Furniture(false, "Bed");
+        Furniture dresser = new Furniture(false, "Dresser");
+        Furniture couch = new Furniture(true, "Couch");
+
+        // Assign specific Furniture objects to a list and instantiates a Room object by passing in the list as a parameter
+        Furniture[] listOfFurniture = {};
+        listOfFurniture = new Furniture[]{counter, coffeeTable, chair};
+        Room foyer = new Room("Foyer", listOfFurniture);
+        listOfFurniture = new Furniture[]{couch, coffeeTable, chair};
+        Room livingRoom = new Room("Living Room", listOfFurniture);
+        listOfFurniture = new Furniture[]{counter, coffeeTable, diningTable};
+        Room kitchen = new Room("Kitchen", listOfFurniture);
+        listOfFurniture = new Furniture[]{counter};
+        Room bathroom = new Room("Bathroom", listOfFurniture);
+        listOfFurniture = new Furniture[]{bed, dresser, counter};
+        Room bedroomOne = new Room("Bedroom One", listOfFurniture);
+        listOfFurniture = new Furniture[]{bed, dresser};
+        Room bedroomTwo = new Room("Bedroom Two", listOfFurniture);
+
+        // Add Room objects to House object
+        house.addRoom(foyer);
+        house.addRoom(livingRoom);
+        house.addRoom(kitchen);
+        house.addRoom(bathroom);
+        house.addRoom(bedroomOne);
+        house.addRoom(bedroomTwo);
+
+        // Add doors from one room to another (aka.edges) to House object
+        house.addDoor(foyer, kitchen);
+        house.addDoor(foyer, livingRoom);
+        house.addDoor(livingRoom, bathroom);
+        house.addDoor(livingRoom, kitchen);
+        house.addDoor(kitchen, bedroomOne);
+        house.addDoor(kitchen, bedroomTwo);
+
+        // Print house layout
+        house.printHouseLayout();
+
+        // Game variables
+        boolean keyFound = false;
+        Room initialRoom = foyer;
+        Room currentRoom = initialRoom;
+
+        // While loop for game logic
+        Scanner scan = new Scanner(System.in);
+        while (true) {
+            // Tell player their current position
+            System.out.println("Current Room: " + currentRoom.name);
+            // Ask player where they want to go
+            System.out.println("Choose Action: Move, Search, or Quit?\n");
+
+            // Grab players input
+            String input = scan.nextLine();
+
+            // Check the action the player selected
+            if (input.equalsIgnoreCase("move")) {
+                System.out.println("Move to ...\n");
+                // Convert player input to Room object
+                input = scan.nextLine();
+                Room targetRoom = null;
+                switch (input) {
+                    case "Foyer":
+                    case "foyer":
+                        targetRoom = foyer;
+                        break;
+                    case "Living Room":
+                    case "living room":
+                        targetRoom = livingRoom;
+                        break;
+                    case "Kitchen":
+                    case "kitchen":
+                        targetRoom = kitchen;
+                        break;
+                    case "Bathroom":
+                    case "bathroom":
+                        targetRoom = bathroom;
+                        break;
+                    case "Bedroom One":
+                    case "bedroom one":
+                        targetRoom = bedroomOne;
+                        break;
+                    case "Bedroom Two":
+                    case "bedroom two":
+                        targetRoom = bedroomTwo;
+                        break;
+                    default:
+                        break;
+                }
+
+                // Check if the room player wants to move to is a valid path
+                if(house.checkValidPath(currentRoom, targetRoom)) {
+                    // Update current room if valid
+                    currentRoom = targetRoom;
+                } else {
+                    // Continue to next iteration if not valid
+                    System.out.println("Please enter a valid room!\n");
+                    continue;
+                }
+            }
+            else if (input.equalsIgnoreCase("search")) {
+                System.out.println("Searching ...\n");
+                // Convert player input to Furniture object
+                input = scan.nextLine();
+                Furniture targetFurniture = null;
+                switch (input) {
+                    case "Coffee Table":
+                    case "coffee table":
+                        targetFurniture = coffeeTable;
+                        break;
+                    case "Dining Table":
+                    case "dining table":
+                        targetFurniture = diningTable;
+                        break;
+                    case "Counter":
+                    case "counter":
+                        targetFurniture = counter;
+                        break;
+                    case "Chair":
+                    case "chair":
+                        targetFurniture = chair;
+                        break;
+                    case "Bed":
+                    case "bed":
+                        targetFurniture = bed;
+                        break;
+                    case "Dresser":
+                    case "dresser":
+                        targetFurniture = dresser;
+                        break;
+                    case "Couch":
+                    case "couch":
+                        targetFurniture = couch;
+                        break;
+                    default:
+                        break;
+                }
+
+                // Check if the furniture has the key
+                //if() {
+                //    // End game if key is found
+                //    getFurniture(currentRoom, targetFurniture);
+                //} else {
+                //    // Continue to next iteration if key not found
+                //    System.out.println("Key is not here!\n");
+                //    continue;
+                //}
+            }
+            else if (input.equalsIgnoreCase("quit")) {
+                System.out.println("You gave up! Thanks for playing!\n");
+                break;
+            } else {
+                System.out.println("Please enter a valid action!\n");
+            }
+        }
     }
 }
+
+

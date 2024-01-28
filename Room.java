@@ -1,17 +1,17 @@
+import java.util.List;
+
 public class Room{
 	public String name;
 	public boolean visited;
-	public Object[] objects;
-	public Room[] connections;
-	
-	public Room(Sting name, Object[] obj){
-		this.name = name;
-		this.visited = False;
-		this.objects = obj;
-		this.connections = [];
-	}
+	public Furniture[] furniture;
+    public List<Room> connections;
 
-	public static void connect(Room r){
+	public Room(String name, Furniture[] obj){
+		this.name = name;
+		this.visited = false;
+		this.furniture = obj;
+	}
+	public void connect(Room r){
 		this.connections.add(r);
 		r.connections.add(this);
 	}

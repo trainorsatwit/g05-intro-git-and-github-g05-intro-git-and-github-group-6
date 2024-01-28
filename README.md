@@ -6,7 +6,7 @@ Python
 Escape Room-esque idea. Find the keys somewhere in the house in order to leave 
 
 Rooms represented undirected graph (kitchen, living room, foyer, bathroom, dining room, bedrooms, basement) 
-Each room has an array with objects to inspect.
+Each room has an array with furnitures to inspect.
 
 Room class: Each room in the house is an instance of this
 - name:
