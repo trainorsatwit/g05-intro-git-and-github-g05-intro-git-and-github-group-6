@@ -1,5 +1,5 @@
 public class Furniture {
-    private final boolean hasKey;
+    private boolean hasKey;
     private boolean hasBeenLookedAt = false;
     private final String name;
     public Furniture(boolean key, String objName)
@@ -19,4 +19,6 @@ public class Furniture {
     public boolean hasKey(){
         return hasKey;
     }
+
+    public void setHasKey(boolean update) {hasKey = update;}
 }

@@ -15,4 +15,15 @@ public class Room{
 		this.connections.add(r);
 		r.connections.add(this);
 	}
+
+	public boolean hasTargetFurniture(String target)
+	{
+		boolean hasTarget = false;
+		for (Furniture f : furniture)
+		{
+			if(f.getName() == target)
+				hasTarget = true;
+		}
+		return hasTarget;
+	}
 }
