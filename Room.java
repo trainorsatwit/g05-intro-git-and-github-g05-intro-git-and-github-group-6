@@ -15,4 +15,13 @@ public class Room{
 		this.connections.add(r);
 		r.connections.add(this);
 	}
+	public String getName() {
+        return name;
+    }
+    public boolean getVisit(){
+        return visited;
+    }
+    public void setVisit(boolean update){
+        visited = update;
+    }
 }
