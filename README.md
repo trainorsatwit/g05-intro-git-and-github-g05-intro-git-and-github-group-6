@@ -10,7 +10,7 @@ Each room has an array with furnitures to inspect.
 
 House Class: Graph of rooms in the house.
 - adjacencyList: Map<Room, List<Room>>
-  
+-
 - House(): constructor of HashMap called adjacencyList
 - addRoom(): puts new room in HashMap
 - addDoor(): adds an edge between two vertices(rooms)
@@ -23,7 +23,7 @@ Room class: Each room in the house is an instance of this
 - visited: bool if the room has been visited
 - Furniture[]: list of furniture objects that exist in that Room
 - Connections[]: list of references to the Room objects (vertices that have an edge to this one)
-
+-
 - Room(): Constructor of Room object 
 - connect(Room r): adds r to this Connections list and adds this Room to r Connections List
 
@@ -31,6 +31,7 @@ Furniture class: Each object in a room is an instance of this
 - hasKey: boolean if key is with this object
 - hasBeenLookedAt: boolean if player has inspected the object
 - name: name of furniture
+-
 - Furniture(): constructor of Furniture object
 - getName(): returns name
 - setLook(): sets hasBeenLookedAt
@@ -44,4 +45,4 @@ Objects class by Kristopher Bruno
 
 House and Main class by Fabio Tran
 
-Check for key by Nilay 
+Check for key by Nilay Patel
