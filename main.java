@@ -271,19 +271,15 @@ public class main {
                 }
 
                 // Check if the furniture has the key
-                if(!currentRoom.hasTargetFurniture(targetFurniture.getName()))
-                {
-                    System.out.println("That is not in the current room.");
-                }
-                else if(targetFurniture.hasKey()) {
-                    // End game if key is found
-                    System.out.println("Found the key!");
-                    break;
-                } else {
-                    // Continue to next iteration if key not found
-                    System.out.println("Key is not here!\n");
-                    continue;
-                }
+//                if()
+//                {
+//                    System.out.println("That is not in the current room.");
+//                }
+//                } else {
+//                    // Continue to next iteration if key not found
+//                    System.out.println("Key is not here!\n");
+//                    continue;
+//                }
             }
             else if(input.equalsIgnoreCase("look")){
                 System.out.print("Furnature in " + currentRoom.name + ": ");
