@@ -8,7 +8,6 @@ public class main {
     public static void keyRandomizer(Furniture[] list) {
         int num = (int) (Math.random()*(double) list.length);
         list[num].setHasKey(true);
-        System.out.println(list[num].getName());
     }
 
     /**
@@ -25,7 +24,17 @@ public class main {
 
             for(int j = 0; j < numDoors; j++)
             {
-                int room = (int) (Math.random()*(double) list.length);
+                int room = (int) (Math.random()* ((double) list.length));
+                if(i == room)
+                {
+                    if(i == list.length - 1){
+                        room--;
+                    }
+                    else
+                    {
+                        room++;
+                    }
+                }
                 if(!house.checkValidPath(list[i], list[room]))
                 {
                     house.addDoor(list[i], list[room]);
