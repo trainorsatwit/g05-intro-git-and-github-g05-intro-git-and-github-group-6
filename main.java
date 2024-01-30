@@ -14,9 +14,7 @@ public class main {
      * Method randomizes room connections to mix up house layout
      */
     public static void roomRandomizer(Room[] list, House house) {
-        //TODO: does this make some games impossible?
-        //Answer: no, it loops through each room, practically ensuring all rooms have connections.
-        //Also, this is probably inefficient
+        //This is probably inefficient, I'll try to think of something more efficient
         int[] countList = {0,0,0,0,0,0};
         for(int i = 0; i < list.length; i++)
         {
@@ -101,7 +99,9 @@ public class main {
         Furniture[] allFurniture = {coffeeTable, diningTable, counter, chair, bed, dresser, couch};
 
         Scanner scan = new Scanner(System.in);
+        
         //Ask user if they want to randomize
+        //Could move these to main game loop, or just do away with the while loops
         while(true)
         {
             System.out.println("Would you like to randomize the key location? (Yes/No)");
