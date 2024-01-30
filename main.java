@@ -16,6 +16,11 @@ public class main {
      */
     public static void roomRandomizer(Room[] list, House house) {
         //This is probably inefficient, I'll try to think of something more efficient
+        for(int i = 1; i < list.length; i++)
+        {
+            house.addDoor(list[i], list[i-1]);
+        }
+
         for(int i = 0; i < list.length; i++)
         {
             int numDoors = (int) (Math.random()*(double) 1) + 1;
@@ -23,15 +28,9 @@ public class main {
             for(int j = 0; j < numDoors; j++)
             {
                 int room = (int) (Math.random()* ((double) list.length));
-                if(i == room)
+                while(i == room)
                 {
-                    if(i == list.length - 1){
-                        room--;
-                    }
-                    else
-                    {
-                        room++;
-                    }
+                    room = (int) (Math.random() * ((double) list.length));
                 }
                 if(!house.checkValidPath(list[i], list[room]))
                 {
@@ -40,6 +39,7 @@ public class main {
             }
         }
     }
+
 
     /**
      * Method randomizes the player starting location in the house
