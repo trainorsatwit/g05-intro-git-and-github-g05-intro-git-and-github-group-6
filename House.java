@@ -33,6 +33,9 @@ public class House {
 
         // Add from target to source too since graph is undirected
         adjacencyList.get(targetRoom).add(sourceRoom);
+
+        sourceRoom.connect(targetRoom);
+        targetRoom.connect((sourceRoom));
     }
 
     /***
@@ -73,5 +76,6 @@ public class House {
         }
         System.out.println();
     }
+
 
 }

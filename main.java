@@ -6,8 +6,9 @@ public class main {
      * Method randomizes the room and furniture that will contain the key
      */
     public static void keyRandomizer(Furniture[] list) {
-        int num = (int) (Math.random()*(double) list.length);
+        int num = (int) (Math.random()* ((double) list.length));
         list[num].setHasKey(true);
+        //System.out.println(list[num].getName());
     }
 
     /**
@@ -15,7 +16,6 @@ public class main {
      */
     public static void roomRandomizer(Room[] list, House house) {
         //This is probably inefficient, I'll try to think of something more efficient
-        int[] countList = {0,0,0,0,0,0};
         for(int i = 0; i < list.length; i++)
         {
             int numDoors = (int) (Math.random()*(double) 1) + 1;
@@ -36,8 +36,6 @@ public class main {
                 if(!house.checkValidPath(list[i], list[room]))
                 {
                     house.addDoor(list[i], list[room]);
-                    countList[i]++;
-                    countList[room]++;
                 }
             }
         }
@@ -280,21 +278,33 @@ public class main {
                 }
 
                 // Check if the furniture has the key
-//                if()
-//                {
-//                    System.out.println("That is not in the current room.");
-//                }
-//                } else {
-//                    // Continue to next iteration if key not found
-//                    System.out.println("Key is not here!\n");
-//                    continue;
-//                }
+                if(!currentRoom.hasTargetFurniture(targetFurniture.getName()))
+                {
+                    System.out.println("That is not in the current room.");
+                }
+                else if(targetFurniture.hasKey())
+                {
+                    System.out.println("Key is here!");
+                    System.out.println("You Win!\n");
+                    break;
+                }
+                else {
+                    // Continue to next iteration if key not found
+                    System.out.println("Key is not here!\n");
+                    continue;
+                }
             }
             else if(input.equalsIgnoreCase("look")){
                 System.out.print("Furnature in " + currentRoom.name + ": ");
                 for(Furniture f : currentRoom.furniture)
                 {
                     System.out.print(f.getName() + ". ");
+                }
+                System.out.print("\n");
+                System.out.print("Connections in " + currentRoom.name + ": ");
+                for(Room r : currentRoom.connections)
+                {
+                    System.out.print(r.name + ". ");
                 }
                 System.out.print("\n");
             }
