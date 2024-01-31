@@ -6,7 +6,6 @@ public class Room{
 	public boolean visited;
 	public Furniture[] furniture;
     public List<Room> connections;
-
 	public Room(String name, Furniture[] obj){
 		this.name = name;
 		this.visited = false;
@@ -28,7 +27,6 @@ public class Room{
 		}
 
 	}
-
 	public boolean hasTargetFurniture(String target)
 	{
 		boolean hasTarget = false;

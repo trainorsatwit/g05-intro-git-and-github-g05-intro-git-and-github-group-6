@@ -2,17 +2,19 @@ import java.util.Scanner;
 
 // Class to hold main game logic
 public class main {
-    /**
+    /***
      * Method randomizes the room and furniture that will contain the key
+     * @param list list of Furniture
      */
     public static void keyRandomizer(Furniture[] list) {
         int num = (int) (Math.random()* ((double) list.length));
         list[num].setHasKey(true);
-        //System.out.println(list[num].getName());
     }
 
-    /**
+    /***
      * Method randomizes room connections to mix up house layout
+     * @param list list of Rooms
+     * @param house House object to mix up layout
      */
     public static void roomRandomizer(Room[] list, House house) {
         //This is probably inefficient, I'll try to think of something more efficient
@@ -23,7 +25,7 @@ public class main {
 
         for(int i = 0; i < list.length; i++)
         {
-            int numDoors = (int) (Math.random()*(double) 1) + 1;
+            int numDoors = (int) (Math.random()) + 1;
 
             for(int j = 0; j < numDoors; j++)
             {
@@ -40,12 +42,13 @@ public class main {
         }
     }
 
-
-    /**
+    /***
      * Method randomizes the player starting location in the house
+     * @param list list of Rooms
      */
-    public static void startPositionRandomizer() {
-        // TODO: Extra feature if time permits
+    public static Room startPositionRandomizer(Room[] list) {
+        int num = (int) (Math.random()* ((double) list.length));
+        return list[num];
     }
 
     /**
@@ -53,6 +56,8 @@ public class main {
      * @param args arguments
      */
     public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+
         /* Introduction Text */
 
         System.out.println("  ______                            _____                         _______        _                 _                 _                  \n" +
@@ -92,35 +97,7 @@ public class main {
         Furniture bed = new Furniture(false, "Bed");
         Furniture dresser = new Furniture(false, "Dresser");
         Furniture couch = new Furniture(false, "Couch");
-
-        //Randomize Furniture
         Furniture[] allFurniture = {coffeeTable, diningTable, counter, chair, bed, dresser, couch};
-
-        Scanner scan = new Scanner(System.in);
-        
-        //Ask user if they want to randomize
-        //Could move these to main game loop, or just do away with the while loops
-        while(true)
-        {
-            System.out.println("Would you like to randomize the key location? (Yes/No)");
-            String input = scan.nextLine();
-
-            // Check the action the player selected
-            if(input.equalsIgnoreCase("yes"))
-            {
-                keyRandomizer(allFurniture);
-                break;
-            }
-            else if(input.equalsIgnoreCase("no"))
-            {
-                couch.setHasKey(true);
-                break;
-            }
-            else
-            {
-                System.out.println("Please enter a valid command");
-            }
-        }
 
         // Assign specific Furniture objects to a list and instantiates a Room object by passing in the list as a parameter
         Furniture[] listOfFurniture = {};
@@ -144,11 +121,33 @@ public class main {
         house.addRoom(bathroom);
         house.addRoom(bedroomOne);
         house.addRoom(bedroomTwo);
-
         Room[] allRooms = {foyer, livingRoom, kitchen, bathroom, bedroomOne, bedroomTwo};
 
-        // Add doors from one room to another (aka.edges) to House object
+        // Ask user if they want to randomize the player's start position
+        Room currentRoom;
+        while(true)
+        {
+            System.out.println("Would you like to randomize the player starting position? (Yes/No)");
+            String input = scan.nextLine();
 
+            // Check the action the player selected
+            if(input.equalsIgnoreCase("yes"))
+            {
+                currentRoom = startPositionRandomizer(allRooms);
+                break;
+            }
+            else if(input.equalsIgnoreCase("no"))
+            {
+                currentRoom = foyer;
+                break;
+            }
+            else
+            {
+                System.out.println("Please enter a valid command");
+            }
+        }
+
+        // Ask user if they want to randomize the room locations
         while(true)
         {
             System.out.println("Would you like to randomize the room locations? (Yes/No)");
@@ -162,6 +161,7 @@ public class main {
             }
             else if(input.equalsIgnoreCase("no"))
             {
+                // Add doors from one room to another (aka.edges) to House object
                 house.addDoor(foyer, kitchen);
                 house.addDoor(foyer, livingRoom);
                 house.addDoor(livingRoom, bathroom);
@@ -176,15 +176,34 @@ public class main {
             }
         }
 
+        // Ask user if they want to randomize the key location
+        while(true)
+        {
+            System.out.println("Would you like to randomize the key location? (Yes/No)");
+            String input = scan.nextLine();
+
+            // Check the action the player selected
+            if(input.equalsIgnoreCase("yes"))
+            {
+                keyRandomizer(allFurniture);
+                break;
+            }
+            else if(input.equalsIgnoreCase("no"))
+            {
+                couch.setHasKey(true);
+                break;
+            }
+            else
+            {
+                System.out.println("Please enter a valid command");
+            }
+        }
+
         // Print house layout
         house.printHouseLayout();
 
-        // Game variables
-        boolean keyFound = false;
-        Room initialRoom = foyer;
-        Room currentRoom = initialRoom;
-
         // While loop for game logic
+        boolean keyFound = false;
         while (true) {
             // Tell player their current position
             System.out.println("Current Room: " + currentRoom.name);
@@ -236,7 +255,6 @@ public class main {
                 } else {
                     // Continue to next iteration if not valid
                     System.out.println("Please enter a valid room!\n");
-                    continue;
                 }
             }
             else if (input.equalsIgnoreCase("search")) {
@@ -291,11 +309,10 @@ public class main {
                 else {
                     // Continue to next iteration if key not found
                     System.out.println("Key is not here!\n");
-                    continue;
                 }
             }
             else if(input.equalsIgnoreCase("look")){
-                System.out.print("Furnature in " + currentRoom.name + ": ");
+                System.out.print("Furniture in " + currentRoom.name + ": ");
                 for(Furniture f : currentRoom.furniture)
                 {
                     System.out.print(f.getName() + ". ");

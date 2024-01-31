@@ -19,6 +19,5 @@ public class Furniture {
     public boolean hasKey(){
         return hasKey;
     }
-
     public void setHasKey(boolean update) {hasKey = update;}
 }
