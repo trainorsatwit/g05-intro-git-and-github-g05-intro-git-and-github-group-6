@@ -1,11 +1,15 @@
 Escape Room Text Adventure
 
-Language: Java
-
 Game Synopsis: 
 - Escape room-esque idea where you must find the keys somewhere in a house before you are able to leave and therefore "win" the game. 
-- Rooms represented undirected graph (kitchen, living room, foyer, bathroom, dining room, bedrooms, basement).
-- Each room has an array with furnitures to inspect.
+- Rooms in a house is represented by an undirected graph (kitchen, living room, foyer, bathroom, dining room, bedrooms, basement).
+- Each room has an array with furnitures to inspect such as couch, chair, etc.
+- Player spawns in a room to start and will have the choice between actions of Move, Search, Look, or Quit.
+   - Move: Select a valid room to enter.
+   - Search: Check a piece of furniture for the key.
+   - Look: List of all furniture in a room will be printed to the player.
+   - Quit: Game will end.
+ - Win Condition: Game ends when a player successfully finds the key or if they choose to quit the game. 
 
 House Class: Graph of rooms in the house.
 - adjacencyList: Map<Room, List<Room>>
@@ -35,12 +39,12 @@ Furniture class: Each object in a room is an instance of this
 - hasKey(): returns hasKey variable
 
 Main class:
-- utilizes other classes in its game logic
+- utilizes other classes along with its own utility functions for main game logic
   
-Room class by Jillian Desmond
+Room Class by Jillian Desmond
 
-Objects class and randomization features by Kristopher Bruno
+Objects Class, Randomization, and Search features by Kristopher Bruno
 
-House class, Main class, and randomization features by Fabio Tran
+House Class, Main Class, and Randomization features by Fabio Tran
 
 Saerch for Key feature by Nilay Patel
