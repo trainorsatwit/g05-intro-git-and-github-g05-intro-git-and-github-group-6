@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Room{
@@ -12,8 +13,31 @@ public class Room{
 		this.furniture = obj;
 	}
 	public void connect(Room r){
-		this.connections.add(r);
-		r.connections.add(this);
+		if(connections == null)
+		{
+			connections = new ArrayList<Room>();
+		}
+		if(r.connections == null)
+		{
+			r.connections = new ArrayList<Room>();
+		}
+
+		if(!this.connections.contains(r.name) || !r.connections.contains((name)))
+		{
+			this.connections.add(r);
+		}
+
+	}
+
+	public boolean hasTargetFurniture(String target)
+	{
+		boolean hasTarget = false;
+		for (Furniture f : furniture)
+		{
+			if(f.getName() == target)
+				hasTarget = true;
+		}
+		return hasTarget;
 	}
 	public String getName() {
         return name;
