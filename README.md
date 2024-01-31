@@ -1,6 +1,6 @@
 Escape Room Text Adventure
 
-Language: Python
+Language: Java
 
 Game Synopsis: 
 - Escape room-esque idea where you must find the keys somewhere in a house before you are able to leave and therefore "win" the game. 
