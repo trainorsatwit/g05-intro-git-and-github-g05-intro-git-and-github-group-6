@@ -296,7 +296,7 @@ public class main {
                 }
 
                 // Check if the furniture has the key
-                if(!currentRoom.hasTargetFurniture(targetFurniture.getName()))
+                if(targetFurniture == null || !currentRoom.hasTargetFurniture(targetFurniture.getName()))
                 {
                     System.out.println("That is not in the current room.");
                 }
