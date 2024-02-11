@@ -8,7 +8,7 @@ public class main {
      */
     public static void keyRandomizer(Furniture[] list) {
         int num = (int) (Math.random()* ((double) list.length));
-        list[num].setHasKey(true);
+        //list[num].setHasKey(true);
     }
 
     /***
@@ -90,13 +90,13 @@ public class main {
         House house = new House();
 
         // Instantiates various Furniture objects
-        Furniture coffeeTable = new Furniture(false, "Coffee Table");
-        Furniture diningTable = new Furniture(false, "Dining Table");
-        Furniture counter = new Furniture(false, "Counter");
-        Furniture chair = new Furniture(false, "Chair");
-        Furniture bed = new Furniture(false, "Bed");
-        Furniture dresser = new Furniture(false, "Dresser");
-        Furniture couch = new Furniture(false, "Couch");
+        Furniture coffeeTable = new Furniture(false, false, false, "Coffee Table");
+        Furniture diningTable = new Furniture(false, false, false, "Dining Table");
+        Furniture counter = new Furniture(false, false, false, "Counter");
+        Furniture chair = new Furniture(false, false, false, "Chair");
+        Furniture bed = new Furniture(false, false, false, "Bed");
+        Furniture dresser = new Furniture(false, false, false, "Dresser");
+        Furniture couch = new Furniture(false, false, false, "Couch");
         Furniture[] allFurniture = {coffeeTable, diningTable, counter, chair, bed, dresser, couch};
 
         // Assign specific Furniture objects to a list and instantiates a Room object by passing in the list as a parameter
@@ -190,7 +190,7 @@ public class main {
             }
             else if(input.equalsIgnoreCase("no"))
             {
-                couch.setHasKey(true);
+                couch.setHasKey(2);
                 break;
             }
             else
@@ -300,16 +300,37 @@ public class main {
                 {
                     System.out.println("That is not in the current room.");
                 }
-                else if(targetFurniture.hasKey())
+                else
                 {
-                    System.out.println("Key is here!");
-                    System.out.println("You Win!\n");
-                    break;
+                	int search = -1;
+                	System.out.println("Where on the object do you want search?\n	[T] On Top of It\n	[I] Inside It \n	[B] Beneath It");
+                	input = scan.nextLine();
+                	switch (input) {
+                    case "T":
+                    case "t":
+                        search = 1;
+                        break;
+                    case "I":
+                    case "i":
+                        search = 2;
+                        break;
+                    case "B":
+                    case "b":
+                        search = 3;
+                        break;
+                	}
+                	if(targetFurniture.hasKey(search))
+                    {
+                        System.out.println("Key is here!");
+                        System.out.println("You Win!\n");
+                        break;
+                    }
+                    else {
+                        // Continue to next iteration if key not found
+                        System.out.println("Key is not here!\n");
+                    }
                 }
-                else {
-                    // Continue to next iteration if key not found
-                    System.out.println("Key is not here!\n");
-                }
+                
             }
             else if(input.equalsIgnoreCase("look")){
                 System.out.print("Furniture in " + currentRoom.name + ": ");
