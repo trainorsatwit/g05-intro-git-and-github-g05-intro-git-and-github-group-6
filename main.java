@@ -97,19 +97,22 @@ public class main {
         Furniture bed = new Furniture(false, false, false, "Bed");
         Furniture dresser = new Furniture(false, false, false, "Dresser");
         Furniture couch = new Furniture(false, false, false, "Couch");
-        Furniture[] allFurniture = {coffeeTable, diningTable, counter, chair, bed, dresser, couch};
+        Furniture toilet = new Furniture(false, false, false, "Toilet");
+        Furniture lamp = new Furniture(false,  false, false, "Lamp");
+        Furniture fridge = new Furniture(false,  false, false, "Fridge");
+        Furniture[] allFurniture = {coffeeTable, diningTable, counter, chair, bed, dresser, couch, toilet, lamp, fridge};
 
         // Assign specific Furniture objects to a list and instantiates a Room object by passing in the list as a parameter
         Furniture[] listOfFurniture = {};
         listOfFurniture = new Furniture[]{counter, coffeeTable, chair};
         Room foyer = new Room("Foyer", listOfFurniture);
-        listOfFurniture = new Furniture[]{couch, coffeeTable, chair};
+        listOfFurniture = new Furniture[]{couch, coffeeTable, chair, lamp};
         Room livingRoom = new Room("Living Room", listOfFurniture);
-        listOfFurniture = new Furniture[]{counter, coffeeTable, diningTable};
+        listOfFurniture = new Furniture[]{counter, coffeeTable, diningTable, fridge};
         Room kitchen = new Room("Kitchen", listOfFurniture);
-        listOfFurniture = new Furniture[]{counter};
+        listOfFurniture = new Furniture[]{counter, toilet};
         Room bathroom = new Room("Bathroom", listOfFurniture);
-        listOfFurniture = new Furniture[]{bed, dresser, counter};
+        listOfFurniture = new Furniture[]{bed, dresser, counter, lamp};
         Room bedroomOne = new Room("Bedroom One", listOfFurniture);
         listOfFurniture = new Furniture[]{bed, dresser};
         Room bedroomTwo = new Room("Bedroom Two", listOfFurniture);
@@ -190,7 +193,7 @@ public class main {
             }
             else if(input.equalsIgnoreCase("no"))
             {
-                couch.setHasKey(2);
+                toilet.setHasKey(2);
                 break;
             }
             else
@@ -291,6 +294,18 @@ public class main {
                     case "couch":
                         targetFurniture = couch;
                         break;
+                    case "Toilet":
+                    case "toilet":
+                    	targetFurniture = toilet;
+                    	break;
+                    case "Lamp":
+                    case "lamp":
+                    	targetFurniture = lamp;
+                    	break;
+                    case "Fridge":
+                    case "fridge":
+                    	targetFurniture = fridge;
+                    	break;
                     default:
                         break;
                 }
