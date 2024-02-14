@@ -211,7 +211,7 @@ public class main {
             // Tell player their current position
             System.out.println("Current Room: " + currentRoom.name);
             // Ask player where they want to go
-            System.out.println("Choose Action: Move, Search, Look, or Quit?\n");
+            System.out.println("Choose Action: Move, Search, Look, Leave, or Quit?\n");
 
             // Grab players input
             String input = scan.nextLine();
@@ -360,6 +360,20 @@ public class main {
                     System.out.print(r.name + ". ");
                 }
                 System.out.print("\n");
+            }
+            else if(input.equalsIgnoreCase("leave")){
+                System.out.println("Are you sure you want to leave the house? You will be late to work! Y/N");
+                String confirm = scan.nextLine();
+                if(confirm.equalsIgnoreCase("Y")){
+                    System.out.println("You left the house without your car keys, and ended up late to work. You were written up. Don't be late again!");
+                    break;
+                }
+                else if(confirm.equalsIgnoreCase("N")){
+                    System.out.println("You decide to stay in the house to look for your car keys some more.\n");
+                }
+                else{
+                    System.out.println("Please enter a valid action!\n");
+                }
             }
             else if (input.equalsIgnoreCase("quit")) {
                 System.out.println("You gave up! Thanks for playing!\n");
