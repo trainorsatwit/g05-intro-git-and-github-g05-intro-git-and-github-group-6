@@ -51,6 +51,17 @@ public class main {
         return list[num];
     }
 
+    
+    /***
+     * Method decreases the players score by 50 points with a minimum of 0
+     * @param score current score
+     */
+    public static int decreaseScore(int score) {
+        int newScore = score - 50;
+        if (newScore < 0) {newScore = 0;}
+        return newScore;
+    }
+    
     /**
      * Main function that controls game logic
      * @param args arguments
@@ -204,12 +215,17 @@ public class main {
 
         // Print house layout
         house.printHouseLayout();
+        
+        // Set starting score
+        int playerScore = 1000;
 
         // While loop for game logic
         boolean keyFound = false;
         while (true) {
             // Tell player their current position
             System.out.println("Current Room: " + currentRoom.name);
+            // Tell player their current points
+            System.out.println("Score: " + playerScore);
             // Ask player where they want to go
             System.out.println("Choose Action: Move, Search, Look, Leave, or Quit?\n");
 
@@ -336,13 +352,14 @@ public class main {
                 	}
                 	if(targetFurniture.hasKey(search))
                     {
-                        System.out.println("Key is here!");
-                        System.out.println("You Win!\n");
+                        System.out.println("Key is here, you win!");
+                        System.out.println("Final Score: " + playerScore + "\n");
                         break;
                     }
                     else {
                         // Continue to next iteration if key not found
-                        System.out.println("Key is not here!\n");
+                        System.out.println("Key is not here! (-50 points)\n");
+                        playerScore = decreaseScore(playerScore);
                     }
                 }
                 
